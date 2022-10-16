@@ -15,7 +15,7 @@
 ## Installation
 
 ```sh
-git clone 
+git clone https://github.com/alpha-hexor/canime.git
 cd canime
 g++ -o anime anime.cpp -lcurl
 ```
