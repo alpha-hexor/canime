@@ -3,7 +3,7 @@
 **A highly efficient tool written in c++ to watch animes from [GOGOANIME](https://gogoanime.dk/)**
 
 ## DEMO
-<video width="1080" height="720" src="https://github.com/alpha-hexor/canime/blob/main/res/anime.mp4?raw=true" type="video/mp4" controls> </video>
+https://user-images.githubusercontent.com/83006189/196020977-107963be-739b-4384-a525-72d7720ba33d.mp4
 
 ## Requirements
 ``1.g++``
