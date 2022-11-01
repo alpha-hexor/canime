@@ -20,6 +20,10 @@ cd canime
 g++ -o anime anime.cpp -lcurl
 ```
 ## Usage
-``./anime``
+``./anime    ----> for normal usage``
+
+``./anime -c ----> load anime from history file``
+
+``./anime -h ----> print help message``
 
 

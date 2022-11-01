@@ -5,6 +5,7 @@
 #include <bits/stdc++.h>
 #include "headers/base64.h"
 #include "headers/httpx.h"
+#include "headers/log.h"
 
 //color shit
 #define PROMPT "\x1B[4;32m"
@@ -141,7 +142,7 @@ void stream_episode(string name,string ep_to_watch,string last_ep){
         if (op == "n")
             exit(0);
         int ep_next = stoi(ep_to_watch) + 1;
-
+        write(name,to_string(ep_next),last_ep);
         stream_episode(name,to_string(ep_next),last_ep);
     }
     else
@@ -149,24 +150,48 @@ void stream_episode(string name,string ep_to_watch,string last_ep){
 }
 
 //main function
-int main(){
-    string anime;
-    cout << PROMPT << "[*]Enter query: ";
-    getline(cin,anime);
-    string anime_to_watch = search(anime);
-    string ep_end = search_ep(anime_to_watch);
+int main(int argc,char* argv[]){
+    //if no command line argument passed start in normal mode
+    if(argc == 1){
 
-    string ep_to_watch;
-    cout << "\n";
-    cout << PROMPT << "[*]Total Episode(1-"+ep_end+"): ";
-    cin >> ep_to_watch;
+        string anime;
+        cout << PROMPT << "[*]Enter query: ";
+        getline(cin,anime);
+        string anime_to_watch = search(anime);
+        string ep_end = search_ep(anime_to_watch);
 
-    if(stoi(ep_to_watch) >= 1 && stoi(ep_to_watch) <= stoi(ep_end)){
-        stream_episode(anime_to_watch,ep_to_watch,ep_end);
+        string ep_to_watch;
+        cout << "\n";
+        cout << PROMPT << "[*]Total Episode(1-"+ep_end+"): ";
+        cin >> ep_to_watch;
+
+        if(stoi(ep_to_watch) >= 1 && stoi(ep_to_watch) <= stoi(ep_end)){
+            write(anime_to_watch,ep_to_watch,ep_end);
+            stream_episode(anime_to_watch,ep_to_watch,ep_end);
+        }
+        else{
+            cout << ERROR << "[*]Invalid Episode";
+            exit(0);
+        }
     }
-    else{
-        cout << ERROR << "[*]Invalid Episode";
-        exit(0);
+
+    if(argc >=2){
+        if(string(argv[1]) == "-c"){
+            auto [anime_name, ep_to_watch,last_ep] = parse();
+            //cout << value1 << ", " << value2 << ", " << value3 << endl;
+
+            stream_episode(anime_name,ep_to_watch,last_ep);
+        }
+        else if(string(argv[1]) == "-h"){
+            //print the help message
+
+            cout << "\n";
+            cout << "[*]Usage:- " << endl;
+            cout << PROMPT << "./anime    -----------> Normal usage" << endl;
+            cout << PROMPT << "./anime -c -----------> Load from logfile" << endl;
+            cout << PROMPT << "./anime -h -----------> To watch help message" << endl;
+
+        }
     }
 
     return 0;
