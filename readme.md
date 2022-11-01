@@ -3,9 +3,10 @@
 **A highly efficient tool written in c++ to watch animes from [GOGOANIME](https://gogoanime.dk/)**
 
 ## DEMO
-https://user-images.githubusercontent.com/83006189/196020977-107963be-739b-4384-a525-72d7720ba33d.mp4
+https://user-images.githubusercontent.com/83006189/199278470-2e515162-c7f3-46aa-aa67-42fe1ce4bfe7.mp4
 
 ## Requirements
+
 ``1.g++``
 
 ``2.libcurl``
