@@ -18,7 +18,7 @@ using namespace std;
 
 //global shit
 string main_url = "https://gogoanime.dk/";
-string animix_api_link = "https://animixplay.to/api/live";
+string animix_api_link = "https://animixplay.to/api/";
 
 //function to get regex first match
 string re(string buffer,string pattern){
@@ -109,17 +109,28 @@ string search_ep(string name){
     string end_ep = re(result,"<a href=\"#\" class=\"active\" ep_start = '[0-9]' ep_end = '([^']+)'>.*</a>");
     return end_ep;
 }
+//function to fix_id
+string create_id(string enc_id){
 
+    int s = (int)enc_id.size();
+    string temp;
+    for(int i=0;i<s-2;i++)
+        temp+= enc_id[i];
+
+    string new_id = string(temp+char(enc_id[s-2] +1));
+
+    return new_id;
+
+}
 //function to stream episode
 void stream_episode(string name,string ep_to_watch,string last_ep){
     string op;
     string x = get(main_url+name+"-episode-"+ep_to_watch);
     string iframe_url = re(x,"data-video=\"([^\"]*)\" >.*");
     string video_id = re(iframe_url,"id=(.*)&");
-
-    string final_link = animix_api_link+string(base64encode(
-        video_id+"LTXs3GrU8we9O"+string(base64encode(video_id))
-    ));
+    string enc_id = base64encode(video_id);
+    
+    string final_link = animix_api_link+"cW9" + create_id(enc_id)  + "MVFhzM0dyVTh3ZTlP" + base64encode(enc_id);
 
     string res = head(final_link);
     string redirect_url = re(res,"location: (.*)");
